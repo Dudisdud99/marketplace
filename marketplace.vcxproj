@@ -19,17 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="adm.cpp" />
-    <ClCompile Include="anuncio.cpp" />
-    <ClCompile Include="cadastro.cpp" />
-    <ClCompile Include="compra.cpp" />
-    <ClCompile Include="inicio.cpp" />
-    <ClCompile Include="login.cpp" />
-    <ClCompile Include="produto.cpp" />
-    <ClCompile Include="src\marketplace.cpp" />
-    <ClCompile Include="usuario.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="src\lib\adm.hpp" />
     <ClInclude Include="src\lib\anuncio.hpp" />
     <ClInclude Include="src\lib\cadastro.hpp" />
@@ -38,6 +27,17 @@
     <ClInclude Include="src\lib\login.hpp" />
     <ClInclude Include="src\lib\produto.hpp" />
     <ClInclude Include="src\lib\usuario.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\adm.cpp" />
+    <ClCompile Include="src\anuncio.cpp" />
+    <ClCompile Include="src\cadastro.cpp" />
+    <ClCompile Include="src\compra.cpp" />
+    <ClCompile Include="src\inicio.cpp" />
+    <ClCompile Include="src\login.cpp" />
+    <ClCompile Include="src\marketplace.cpp" />
+    <ClCompile Include="src\produto.cpp" />
+    <ClCompile Include="src\usuario.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

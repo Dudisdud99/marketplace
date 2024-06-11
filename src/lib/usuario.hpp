@@ -22,6 +22,16 @@ class Usuario {
 
 		//set
 
+		void setNome(std::string nome);
+
+		void setEmail(std::string email);
+
+		void setSenha(std::string senha);
+
+		void setId(int id);
+
+		void setAdm(bool adm);
+
 		//funcoes
 
 	private:
