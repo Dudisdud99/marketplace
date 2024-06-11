@@ -18,6 +18,19 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="anuncio.hpp" />
+    <ClCompile Include="src\marketplace.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="adm.hpp" />
+    <ClInclude Include="cadastro.hpp" />
+    <ClInclude Include="compra.hpp" />
+    <ClInclude Include="inicio.hpp" />
+    <ClInclude Include="login.hpp" />
+    <ClInclude Include="produto.hpp" />
+    <ClInclude Include="usuario.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -126,9 +139,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="marketplace.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
