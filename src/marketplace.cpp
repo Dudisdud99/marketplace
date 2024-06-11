@@ -1,20 +1,36 @@
-// marketplace.cpp : Este arquivo contém a função 'main'. A execução do programa começa e termina ali.
-//
-
 #include <iostream>
+#include <vector>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+int main() {
+    std::vector<Usuario*> usuarios;
+    std::vector<Adm*> adms;
+
+    std::string senhaAdm = "admin";
+
+    int idUsuario = 0;
+
+    Inicio::inicio(usuarios, adms, idUsuario, senhaAdm);
+
+    /*for (auto it = usuarios.begin(); it != usuarios.end(); ) {
+        delete* it;
+        *it = nullptr;
+        it = usuarios.erase(it);
+    }
+    usuarios.clear();
+
+    for (auto it = livros.begin(); it != livros.end(); ) {
+        delete* it;
+        *it = nullptr;
+        it = livros.erase(it);
+    }
+    livros.clear();
+
+    for (auto it = adms.begin(); it != adms.end(); ) {
+        delete* it;
+        *it = nullptr;
+        it = adms.erase(it);
+    }
+    adms.clear();*/
+
+    return 0;
 }
-
-// Executar programa: Ctrl + F5 ou Menu Depurar > Iniciar Sem Depuração
-// Depurar programa: F5 ou menu Depurar > Iniciar Depuração
-
-// Dicas para Começar: 
-//   1. Use a janela do Gerenciador de Soluções para adicionar/gerenciar arquivos
-//   2. Use a janela do Team Explorer para conectar-se ao controle do código-fonte
-//   3. Use a janela de Saída para ver mensagens de saída do build e outras mensagens
-//   4. Use a janela Lista de Erros para exibir erros
-//   5. Ir Para o Projeto > Adicionar Novo Item para criar novos arquivos de código, ou Projeto > Adicionar Item Existente para adicionar arquivos de código existentes ao projeto
-//   6. No futuro, para abrir este projeto novamente, vá para Arquivo > Abrir > Projeto e selecione o arquivo. sln
