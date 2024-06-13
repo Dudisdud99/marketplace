@@ -1,36 +1,35 @@
 #include <iostream>
 #include <vector>
 
+#include "lib/usuario.hpp"
+#include "lib/inicio.hpp"
+#include "lib/anuncio.hpp"
+
 int main() {
+
     std::vector<Usuario*> usuarios;
-    std::vector<Adm*> adms;
+    std::vector<Anuncio*> anuncios;
 
     std::string senhaAdm = "admin";
 
     int idUsuario = 0;
+    int idAnuncio = 0;
 
-    Inicio::inicio(usuarios, adms, idUsuario, senhaAdm);
+    Inicio::inicio(usuarios, idUsuario, senhaAdm, anuncios, idAnuncio);
 
-    /*for (auto it = usuarios.begin(); it != usuarios.end(); ) {
+    for (auto it = usuarios.begin(); it != usuarios.end(); ) {
         delete* it;
         *it = nullptr;
         it = usuarios.erase(it);
     }
     usuarios.clear();
 
-    for (auto it = livros.begin(); it != livros.end(); ) {
+    for (auto it = anuncios.begin(); it != anuncios.end(); ) {
         delete* it;
         *it = nullptr;
-        it = livros.erase(it);
+        it = anuncios.erase(it);
     }
-    livros.clear();
-
-    for (auto it = adms.begin(); it != adms.end(); ) {
-        delete* it;
-        *it = nullptr;
-        it = adms.erase(it);
-    }
-    adms.clear();*/
+    usuarios.clear();
 
     return 0;
 }

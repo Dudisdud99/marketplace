@@ -1,4 +1,5 @@
 #include "lib/usuario.hpp"
+#include "lib/anuncio.hpp"
 
 //construtor e destrutor
 
@@ -60,3 +61,389 @@ void Usuario::setAdm(bool adm) {
 }
 
 //funcoes
+
+void Usuario::inicioUsuario(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
+
+	int opcao;
+
+	while (true) {
+
+		std::cout << "\n---------------------------\n";
+		std::cout << "\n1 - Comunidadde\n";
+		std::cout << "2 - Minha conta\n";
+		std::cout << "0 - Sair\n";
+		std::cout << "\nsua opcao: ";
+
+		std::cin >> opcao;
+
+		if (opcao == 0) {
+			break;
+		}
+		else if (opcao == 1) {
+			comunidade(usuarios,anuncios);
+		}
+		else if (opcao == 2) {
+			minhaConta(usuarios, anuncios, idAnuncio);
+		}
+		else {
+			std::cout << "\nOpcao invalida\n";
+		}
+	}
+}
+
+void Usuario::comunidade(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios) {
+
+	std::cout << "\n---------------------------\n";
+	std::cout << "\nAnuncios da comunidade\n";
+
+	for (int i = 0; i < anuncios.size(); i++) {
+		std::cout << "\nTitulo: " << anuncios[i]->getTitulo() << "\n";
+		std::cout << "Id: " << anuncios[i]->getId() << "\n";
+		std::cout << "Descricao: " << anuncios[i]->getDescricao() << "\n";
+		std::cout << "Categoria: " << anuncios[i]->getCategoria() << "\n";
+		
+		std::vector<std::string> comentarios = anuncios[i]->getComentarios();
+		for (int j = 0; j < comentarios.size(); j++) {
+			std::cout << comentarios[j] << " ";
+		}
+		std::cout << "\n";
+	}
+
+	while (true) {
+
+		int opcao;
+
+		std::cout << "\n---------------------------\n";
+		std::cout << "\n1 - Visualizar anuncio\n";
+		std::cout << "0 - Sair\n";
+		std::cout << "\nsua opcao: ";
+
+		std::cin >> opcao;
+
+		if (opcao == 0) {
+			break;
+		}
+		else if (opcao == 1) {
+			verAnuncio(anuncios);
+		}
+		else {
+			std::cout << "\nOpcao invalida\n";
+		}
+	}
+}
+
+void Usuario::verAnuncio(std::vector<Anuncio*>& anuncios) {
+
+	while (true) {
+
+		int id;
+
+		std::cout << "\n---------------------------\n";
+		std::cout << "\nId do anuncio: ";
+		std::cin >> id;
+
+		auto it = std::find_if(anuncios.begin(), anuncios.end(), [&id](Anuncio* anuncio) {
+			return anuncio->getId() == id;
+			});
+
+		if (it != anuncios.end()) {
+			(*it)->setVisualizacoes((*it)->getVisualizacoes() + 1);
+			(*it)->exibirDados(anuncios);
+			opcoesComunidadeAnuncio(anuncios, id);
+			break;
+		}
+		else {
+			std::cout << "\nAnuncio nao encontrado\n" << std::endl;
+		}
+	}
+
+}
+
+void Usuario::opcoesComunidadeAnuncio(std::vector<Anuncio*>& anuncios, int id) {
+
+	while (true) {
+
+		int opcao;
+
+		std::cout << "\n---------------------------\n";
+		std::cout << "\n1 - Comentar\n";
+		std::cout << "2 - Avaliar\n";
+		std::cout << "3 - Denunciar\n";
+		std::cout << "0 - Sair\n";
+		std::cout << "\nsua opcao: ";
+
+		std::cin >> opcao;
+
+		if (opcao == 0) {
+			break;
+		}
+		else if (opcao == 1) {
+			comentar(anuncios, id);
+		}
+		else if (opcao == 2) {
+			avaliar(anuncios, id);
+		}
+		else if (opcao == 3) {
+			denunciar(anuncios, id);
+		}
+		else {
+			std::cout << "\nOpcao invalida\n";
+		}
+	}
+}
+
+void Usuario::comentar(std::vector<Anuncio*>& anuncios, int id) {
+
+	std::string comentario;
+
+	std::cout << "\n---------------------------\n";
+	std::cout << "\nDigite seu comentario: ";
+	std::cin >> comentario;
+
+	auto it = std::find_if(anuncios.begin(), anuncios.end(), [&id](Anuncio* anuncio) {
+		return anuncio->getId() == id;
+	});
+
+	if (it != anuncios.end()) {
+		(*it)->setComentarios(comentario);
+		std::cout << "\nComentario adicionado\n" << std::endl;
+	}
+	else {
+		std::cout << "\nAnuncio nao encontrado\n" << std::endl;
+	}
+}
+
+void Usuario::avaliar(std::vector<Anuncio*>& anuncios, int id) {
+
+	std::string avaliacao;
+
+	std::cout << "\n---------------------------\n";
+	std::cout << "\n1 - Like\n";
+	std::cout << "2 - Deslike\n";
+	std::cout << "0 - Sair\n";
+	std::cout << "\nsua opcao: ";
+	std::cin >> avaliacao;
+
+	auto it = std::find_if(anuncios.begin(), anuncios.end(), [&id](Anuncio* anuncio) {
+		return anuncio->getId() == id;
+	});
+
+	if (it != anuncios.end()) {
+		if (avaliacao == "1") {
+			(*it)->setLikes((*it)->getLikes() + 1);
+			std::cout << "\nLike adicionado\n" << std::endl;
+		}
+		else if (avaliacao == "2") {
+			(*it)->setDislikes((*it)->getDislikes() + 1);
+			std::cout << "\nDeslike adicionado\n" << std::endl;
+		}
+		else {
+			std::cout << "\nOpcao invalida\n" << std::endl;
+		}
+	}
+	else {
+		std::cout << "\nAnuncio nao encontrado\n" << std::endl;
+	}
+}
+
+void Usuario::denunciar(std::vector<Anuncio*>& anuncios, int id) {
+
+	std::string denuncia;
+
+	std::cout << "\n---------------------------\n";
+	std::cout << "\nDigite sua denuncia: ";
+	std::cin >> denuncia;
+
+	auto it = std::find_if(anuncios.begin(), anuncios.end(), [&id](Anuncio* anuncio) {
+		return anuncio->getId() == id;
+	});
+
+	if (it != anuncios.end()) {
+		(*it)->setDenuncias((*it)->getDenuncias() + 1);
+		std::cout << "\nDenuncia adicionada\n" << std::endl;
+	}
+	else {
+		std::cout << "\nAnuncio nao encontrado\n" << std::endl;
+	}
+}
+
+void Usuario::minhaConta(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
+	
+	while (true) {
+
+		int opcao;
+
+		std::cout << "\n---------------------------\n";
+		std::cout << "\n1 - Meus dados\n";
+		std::cout << "2 - Anuncios\n";
+		std::cout << "0 - Sair\n";
+		std::cout << "\nsua opcao: ";
+
+		std::cin >> opcao;
+
+		if (opcao == 0) {
+			break;
+		}
+		else if (opcao == 1) {
+			meusDados(usuarios, anuncios);
+		}
+		else if (opcao == 2) {
+			meusAnuncios(usuarios, anuncios);
+			opcoesMeusAnuncios(usuarios, anuncios, idAnuncio);
+		}
+		else {
+			std::cout << "\nOpcao invalida\n";
+		}
+	}
+}
+
+void Usuario::meusDados(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios) {
+
+	std::cout << "\n---------------------------\n";
+	std::cout << "\nNome:" << this->nome << "\n";
+	std::cout << "Email: " << this->email << "\n";
+	std::cout << "Senha: " << this->senha << "\n";
+	std::cout << "Id: " << this->id << "\n";
+	std::cout << "Tipo de conta: ";
+	if (this->adm) {
+		std::cout << "Adiminstrador\n";
+	}
+	else {
+		std::cout << "Usuario\n";
+	}
+}
+
+void Usuario::meusAnuncios(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios) {
+
+	std::cout << "\n---------------------------\n";
+	std::cout << "\nMeus anuncios:\n\n";
+
+	for (int i = 0; i < anuncios.size(); i++) {
+		if (anuncios[i]->getUsuarioId() == this->id) {
+			anuncios[i]->exibirDados(anuncios);
+		}
+	}
+}
+
+void Usuario::opcoesMeusAnuncios(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
+
+	while (true) {
+		int opcao;
+
+		std::cout << "\n---------------------------\n";
+		std::cout << "\n1 - Modificar anuncio\n";
+		std::cout << "2 - Adicionar anuncio\n";
+		std::cout << "3 - Remover anuncio\n";
+		std::cout << "0 - Sair\n";
+		std::cout << "\nsua opcao: ";
+
+		std::cin >> opcao;
+
+		if (opcao == 1) {
+			editarAnuncio(usuarios, anuncios);
+		}
+		else if (opcao == 2) {
+			criarAnuncio(usuarios, anuncios, idAnuncio);
+		}
+		else if (opcao == 3) {
+			excluirAnuncio(usuarios, anuncios);
+		}
+		else if (opcao == 0) {
+			break;
+		}
+		else {
+			std::cout << "\nOpcao invalida\n";
+		}
+	}
+}
+
+void Usuario::criarAnuncio(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
+
+	std::string titulo;
+	std::string descricao;
+	std::string categoria;
+
+	std::cout << "\n---------------------------\n";
+	std::cout << "\nTitulo: ";
+	std::cin >> titulo;
+	std::cout << "Descricao: ";
+	std::cin >> descricao;
+	std::cout << "Categoria: ";
+	std::cin >> categoria;
+
+	Anuncio* anuncio = new Anuncio(this->id);
+	anuncio->setTitulo(titulo);
+	anuncio->setDescricao(descricao);
+	anuncio->setCategoria(categoria);
+	anuncio->setId(idAnuncio);
+	anuncios.push_back(anuncio);
+
+	idAnuncio++;
+}
+
+void Usuario::editarAnuncio(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios) {
+
+	int id;
+	std::string titulo;
+	std::string descricao;
+	std::string categoria;
+
+	while (true) {
+
+		std::cout << "\n---------------------------\n";
+		std::cout << "\nId do anuncio: ";
+		std::cin >> id;
+		std::cout << "\nTitulo: ";
+		std::cin >> titulo;
+		std::cout << "\nDescricao: ";
+		std::cin >> descricao;
+		std::cout << "\nCategoria: ";
+		std::cin >> categoria;
+
+		auto it = std::find_if(anuncios.begin(), anuncios.end(), [&id](Anuncio* anuncio) {
+			return anuncio->getId() == id;
+		});
+
+		if (it != anuncios.end()) {
+
+			anuncios[id]->setTitulo(titulo);
+			anuncios[id]->setDescricao(descricao);
+			anuncios[id]->setCategoria(categoria);
+
+			std::cout << "\nAnuncio editado\n" << std::endl;
+
+			break;
+		}
+		else {
+			std::cout << "\nAnuncio nao encontrado\n" << std::endl;
+		}
+	}
+}
+
+void Usuario::excluirAnuncio(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios) {
+
+	while (true) {
+
+		int id;
+
+		std::cout << "\n---------------------------\n";
+		std::cout << "\nId do anuncio: ";
+		std::cin >> id;
+
+		auto it = std::find_if(anuncios.begin(), anuncios.end(), [&id](Anuncio* anuncio) {
+			return anuncio->getId() == id;
+		});
+
+		if (it != anuncios.end()) {
+
+			delete* it;
+			*it = nullptr;
+			it = anuncios.erase(it);
+			std::cout << "\nAnuncio excluido\n" << std::endl;
+			break;
+		}
+		else {
+			std::cout << "\nAnuncio nao encontrado\n" << std::endl;
+		}
+	}
+}

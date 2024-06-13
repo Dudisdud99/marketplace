@@ -1,11 +1,12 @@
 #include "lib/inicio.hpp"
 #include "lib/cadastro.hpp"
 #include "lib/login.hpp"
+#include "lib/usuario.hpp"
 
-void Inicio::inicio(std::vector<Usuario*>& usuarios, std::vector<Adm*>& adms, int& idUsuario, std::string senhaAdm) {
+void Inicio::inicio(std::vector<Usuario*>& usuarios, int& idUsuario, std::string senhaAdm, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
     int opcao;
 
-    std::cout << "\nBem-vindo ao sistema de biblioteca\n";
+    std::cout << "\nBem-vindo ao marketplace\n";
 
     while (true) {
         std::cout << "\n---------------------------\n";
@@ -16,10 +17,10 @@ void Inicio::inicio(std::vector<Usuario*>& usuarios, std::vector<Adm*>& adms, in
             break;
         }
         else if (opcao == 1) {
-            Cadastro::cadastro(usuarios, adms, idUsuario, senhaAdm);
+            Cadastro::cadastro(usuarios, idUsuario, senhaAdm, anuncios);
         }
         else if (opcao == 2) {
-            Login::login(usuarios, adms, idUsuario, senhaAdm);
+            Login::login(usuarios, anuncios, idAnuncio);
         }
         else {
             std::cout << "\nOpcao invalida\n";

@@ -5,10 +5,11 @@
 #include <iostream>
 
 class Usuario;
+class Anuncio;
 class Adm;
 
 namespace Login {
-	void login(std::vector<Usuario*>& usuarios, std::vector<Adm*>& adms, int& idUsuario, std::string senhaAdm);
+	void login(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio);
 }
 
 #endif

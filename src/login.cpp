@@ -1,11 +1,12 @@
 #include "lib/login.hpp"
 #include "lib/usuario.hpp"
 #include "lib/adm.hpp"
+#include "lib/anuncio.hpp"
 
 #include <iostream>
 #include <vector>
 
-void Login::login(std::vector<Usuario*>& usuarios, std::vector<Adm*>& adms, int& idUsuario, std::string senhaAdm) {
+void Login::login(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
     std::string login, senha;
 
     while (true) {
@@ -16,29 +17,25 @@ void Login::login(std::vector<Usuario*>& usuarios, std::vector<Adm*>& adms, int&
         std::cout << "Digite a senha: ";
         std::cin >> senha;
 
-        bool found = false;
+        bool achouUsuario = false;
 
-        for (Adm* adm : adms) {
-            if (adm->getNome() == login && adm->getSenha() == senha) {
-                std::cout << "\nAdiminstrador logado\n";
-                adm->opcoesUsuario(livros, usuarios, adms, idUsuario, senhaAdm);
-                found = true;
+        for (Usuario* usuario : usuarios) {
+            if (usuario->getNome() == login && usuario->getSenha() == senha) {
+                achouUsuario = true;
+                if (usuario->getAdm()) {
+                    std::cout << "\nAdiminstrador logado\n";
+                    usuario->inicioUsuario(usuarios, anuncios, idAnuncio);
+                    break;
+                }
+                std::cout << "\nUsuario logado\n";
+                usuario->inicioUsuario(usuarios, anuncios, idAnuncio);
                 break;
             }
         }
-        if (!found) {
-            for (Usuario* usuario : usuarios) {
-                if (usuario->getNome() == login && usuario->getSenha() == senha) {
-                    std::cout << "\nUsuario logado\n";
-                    usuario->opcoesUsuario(livros, usuarios);
-                    found = true;
-                    break;
-                }
-            }
-        }
 
-        if (found == false) {
+        if (achouUsuario == false) {
             std::cout << "\nUsuario ou senha invalidos\n";
+            continue;
         }
         else {
             break;

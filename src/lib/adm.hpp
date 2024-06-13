@@ -1,5 +1,10 @@
+#ifndef ADM_HPP
+#define ADM_HPP
+
 #include <iostream>
 #include <vector>
+
+#include "usuario.hpp"
 
 class Adm:public Usuario {
 public:
@@ -14,3 +19,5 @@ public:
 
 private:
 };
+
+#endif
