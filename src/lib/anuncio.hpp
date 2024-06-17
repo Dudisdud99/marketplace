@@ -30,6 +30,8 @@ public:
 
 	std::vector<std::string> getComentarios();
 
+	bool getBanido();
+
 	//set
 
 	void setUsuarioId(int usuarioId);
@@ -52,6 +54,8 @@ public:
 
 	void setComentarios(std::string comentario);
 
+	void setBanido(bool banido);
+
 	//funcoes
 
 	void exibirDados(std::vector<Anuncio*>& anuncios);
@@ -68,4 +72,5 @@ private:
 	int dislikes;
 	int denuncias;
 	std::vector<std::string> comentarios;
+	bool banido;
 };

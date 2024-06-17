@@ -6,18 +6,34 @@
 
 #include "usuario.hpp"
 
+class Anuncio;
+
 class Adm:public Usuario {
-public:
+	public:
 
-	Adm(std::string nome, std::string email, std::string senha, int id, bool adm);
+		Adm(std::string nome, std::string email, std::string senha, int id, bool adm);
 
-	~Adm();
+		~Adm();
 
-	//get
+		//funcoes
 
-	//funcoes
+		void inicioUsuario(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio);
 
-private:
+		void opcoesAdm(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio);
+
+		void mostrarAnunciosTodos(std::vector<Anuncio*>& anuncios, std::vector<Usuario*>& usuarios);
+
+		void mostrarAnuncio(std::vector<Anuncio*>& anuncios);
+
+		void mostrarAnunciosOp(std::vector<Anuncio*>& anuncios, int id);
+
+		void mostrarUsuariosTodos(std::vector<Anuncio*>& anuncios,std::vector<Usuario*>& usuarios);
+
+		void mostrarUsuario(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios);
+
+		void mostrarUsuariosOp(std::vector<Usuario*>& usuarios, int id);
+
+
 };
 
 #endif

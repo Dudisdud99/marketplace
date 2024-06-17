@@ -25,6 +25,8 @@ class Usuario {
 
 		bool getAdm();
 
+		bool getBanido();
+
 		//set
 
 		void setNome(std::string nome);
@@ -36,6 +38,8 @@ class Usuario {
 		void setId(int id);
 
 		void setAdm(bool adm);
+
+		void setBanido(bool banido);
 
 		//funcoes
 
@@ -74,6 +78,7 @@ class Usuario {
 		std::string senha;
 		int id;
 		bool adm;
+		bool banido;
 };
 
 #endif

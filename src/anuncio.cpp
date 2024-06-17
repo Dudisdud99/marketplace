@@ -8,6 +8,7 @@ Anuncio::Anuncio(int usuarioId) {
 	this->likes = 0;
 	this->dislikes = 0;
 	this->denuncias = 0;
+	this->banido = false;
 }
 
 Anuncio::~Anuncio() {
@@ -56,6 +57,10 @@ std::vector<std::string> Anuncio::getComentarios() {
 	return this->comentarios;
 }
 
+bool Anuncio::getBanido() {
+	return this->banido;
+}
+
 //set
 
 void Anuncio::setUsuarioId(int usuarioId) {
@@ -98,11 +103,15 @@ void Anuncio::setComentarios(std::string comentario) {
 	this->comentarios.push_back(comentario);
 }
 
+void Anuncio::setBanido(bool banido) {
+	this->banido = banido;
+}
+
 //funcoes
 
 void Anuncio::exibirDados(std::vector<Anuncio*>& anuncios) {
 
-	std::cout << "Titulo: " << this->getTitulo() << "\n";
+	std::cout << "\nTitulo: " << this->getTitulo() << "\n";
 	std::cout << "ID: " << this->getId() << "\n";
 	std::cout << "Descricao: " << this->getDescricao() << "\n";
 	std::cout << "Categoria: " << this->getCategoria() << "\n";
@@ -115,5 +124,5 @@ void Anuncio::exibirDados(std::vector<Anuncio*>& anuncios) {
 	for (int j = 0; j < comentarios.size(); j++) {
 		std::cout << comentarios[j] << "; ";
 	}
-	std::cout << "\n\n";
+	std::cout << "\n";
 }

@@ -18,19 +18,30 @@ void Login::login(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anunci
         std::cin >> senha;
 
         bool achouUsuario = false;
+        bool banido = false;
 
         for (Usuario* usuario : usuarios) {
             if (usuario->getNome() == login && usuario->getSenha() == senha) {
                 achouUsuario = true;
                 if (usuario->getAdm()) {
-                    std::cout << "\nAdiminstrador logado\n";
-                    usuario->inicioUsuario(usuarios, anuncios, idAnuncio);
-                    break;
+                    if(usuario->getBanido()) {
+						std::cout << "\nUsuario banido\n";
+                        banido = true;
+						break;
+					}
+                    else {
+                        std::cout << "\nAdiminstrador logado\n";
+                        static_cast<Adm*>(usuario)->inicioUsuario(usuarios, anuncios, idAnuncio);
+                        break;
+                    }
                 }
                 std::cout << "\nUsuario logado\n";
                 usuario->inicioUsuario(usuarios, anuncios, idAnuncio);
                 break;
             }
+        }
+        if (banido) {
+            break;
         }
 
         if (achouUsuario == false) {

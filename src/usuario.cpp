@@ -9,6 +9,7 @@ Usuario::Usuario(std::string nome, std::string email, std::string senha, int id,
 	this->senha = senha;
 	this->id = id;
 	this->adm = adm;
+	this->banido = false;
 }
 
 Usuario::~Usuario() {
@@ -37,6 +38,10 @@ bool Usuario::getAdm() {
 	return this->adm;
 }
 
+bool Usuario::getBanido() {
+	return this->banido;
+}
+
 //set
 
 void Usuario::setNome(std::string nome) {
@@ -58,6 +63,10 @@ void Usuario::setId(int id) {
 
 void Usuario::setAdm(bool adm) {
 	this->adm = adm;
+}
+
+bool Usuario::getBanido() {
+	return this->banido;
 }
 
 //funcoes
@@ -96,17 +105,37 @@ void Usuario::comunidade(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>&
 	std::cout << "\n---------------------------\n";
 	std::cout << "\nAnuncios da comunidade\n";
 
+	int id;
+	std::string dono;
+
 	for (int i = 0; i < anuncios.size(); i++) {
-		std::cout << "\nTitulo: " << anuncios[i]->getTitulo() << "\n";
-		std::cout << "Id: " << anuncios[i]->getId() << "\n";
-		std::cout << "Descricao: " << anuncios[i]->getDescricao() << "\n";
-		std::cout << "Categoria: " << anuncios[i]->getCategoria() << "\n";
-		
-		std::vector<std::string> comentarios = anuncios[i]->getComentarios();
-		for (int j = 0; j < comentarios.size(); j++) {
-			std::cout << comentarios[j] << " ";
+
+		if(anuncios[i]->getBanido()){
+			continue;
 		}
-		std::cout << "\n";
+		else {
+			id = anuncios[i]->getUsuarioId();
+
+			auto it = std::find_if(usuarios.begin(), usuarios.end(), [&id](Usuario* usuario) {
+				return usuario->getId() == id;
+			});
+
+			if (it != usuarios.end()) {
+				dono = (*it)->getNome();
+			}
+			else {
+				std::cout << "\nAnuncio nao encontrado\n" << std::endl;
+			}
+
+			std::cout << "\nTitulo: " << anuncios[i]->getTitulo() << "\n";
+			std::cout << "Id: " << anuncios[i]->getId() << "\n";
+			std::cout << "Dono: " << dono << "\n";
+			std::cout << "Descricao: " << anuncios[i]->getDescricao() << "\n";
+			std::cout << "Categoria: " << anuncios[i]->getCategoria() << "\n";
+			std::cout << "Visualizacoes: " << anuncios[i]->getVisualizacoes() << "\n";
+
+		}
+
 	}
 
 	while (true) {
@@ -316,7 +345,7 @@ void Usuario::meusDados(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& 
 void Usuario::meusAnuncios(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios) {
 
 	std::cout << "\n---------------------------\n";
-	std::cout << "\nMeus anuncios:\n\n";
+	std::cout << "\nMeus anuncios:\n";
 
 	for (int i = 0; i < anuncios.size(); i++) {
 		if (anuncios[i]->getUsuarioId() == this->id) {
@@ -395,9 +424,9 @@ void Usuario::editarAnuncio(std::vector<Usuario*>& usuarios, std::vector<Anuncio
 		std::cin >> id;
 		std::cout << "\nTitulo: ";
 		std::cin >> titulo;
-		std::cout << "\nDescricao: ";
+		std::cout << "Descricao: ";
 		std::cin >> descricao;
-		std::cout << "\nCategoria: ";
+		std::cout << "Categoria: ";
 		std::cin >> categoria;
 
 		auto it = std::find_if(anuncios.begin(), anuncios.end(), [&id](Anuncio* anuncio) {
@@ -410,12 +439,12 @@ void Usuario::editarAnuncio(std::vector<Usuario*>& usuarios, std::vector<Anuncio
 			anuncios[id]->setDescricao(descricao);
 			anuncios[id]->setCategoria(categoria);
 
-			std::cout << "\nAnuncio editado\n" << std::endl;
+			std::cout << "\nAnuncio editado\n";
 
 			break;
 		}
 		else {
-			std::cout << "\nAnuncio nao encontrado\n" << std::endl;
+			std::cout << "\nAnuncio nao encontrado\n";
 		}
 	}
 }
