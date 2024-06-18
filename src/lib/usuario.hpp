@@ -47,15 +47,17 @@ class Usuario {
 
 		void comunidade(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios);
 
-		void verAnuncio(std::vector<Anuncio*>& anuncios);
+		void verAnuncio(std::vector<Anuncio*>& anuncios, std::vector<Usuario*>& usuarios);
 
-		void opcoesComunidadeAnuncio(std::vector<Anuncio*>& anuncios, int id);
+		void opcoesComunidadeAnuncio(std::vector<Anuncio*>& anuncios, int id, std::vector<Usuario*>& usuarios);
 
 		void comentar(std::vector<Anuncio*>& anuncios, int id);
 
 		void avaliar(std::vector<Anuncio*>& anuncios, int id);
 
 		void denunciar(std::vector<Anuncio*>& anuncios, int id);
+
+		void comprar(std::vector<Anuncio*>& anuncios, int id, std::vector<Usuario*>& usuarios);
 
 		void minhaConta(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio);
 

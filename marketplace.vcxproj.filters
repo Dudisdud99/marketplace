@@ -33,10 +33,10 @@
     <ClInclude Include="src\lib\login.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\lib\produto.hpp">
+    <ClInclude Include="src\lib\usuario.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\lib\usuario.hpp">
+    <ClInclude Include="src\lib\produto.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,10 +62,13 @@
     <ClCompile Include="src\marketplace.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\produto.cpp">
+    <ClCompile Include="src\usuario.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\usuario.cpp">
+    <ClCompile Include="produto.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\produto.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>

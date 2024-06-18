@@ -33,7 +33,6 @@ class Adm:public Usuario {
 
 		void mostrarUsuariosOp(std::vector<Usuario*>& usuarios, int id);
 
-
 };
 
 #endif

@@ -65,11 +65,11 @@ void Usuario::setAdm(bool adm) {
 	this->adm = adm;
 }
 
-bool Usuario::getBanido() {
-	return this->banido;
+void Usuario::setBanido(bool banido) {
+	this->banido = banido;
 }
 
-//funcoes
+//inicio
 
 void Usuario::inicioUsuario(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
 
@@ -99,6 +99,8 @@ void Usuario::inicioUsuario(std::vector<Usuario*>& usuarios, std::vector<Anuncio
 		}
 	}
 }
+
+//comunidade
 
 void Usuario::comunidade(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios) {
 
@@ -153,7 +155,7 @@ void Usuario::comunidade(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>&
 			break;
 		}
 		else if (opcao == 1) {
-			verAnuncio(anuncios);
+			verAnuncio(anuncios, usuarios);
 		}
 		else {
 			std::cout << "\nOpcao invalida\n";
@@ -161,7 +163,7 @@ void Usuario::comunidade(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>&
 	}
 }
 
-void Usuario::verAnuncio(std::vector<Anuncio*>& anuncios) {
+void Usuario::verAnuncio(std::vector<Anuncio*>& anuncios, std::vector<Usuario*>& usuarios) {
 
 	while (true) {
 
@@ -178,7 +180,7 @@ void Usuario::verAnuncio(std::vector<Anuncio*>& anuncios) {
 		if (it != anuncios.end()) {
 			(*it)->setVisualizacoes((*it)->getVisualizacoes() + 1);
 			(*it)->exibirDados(anuncios);
-			opcoesComunidadeAnuncio(anuncios, id);
+			opcoesComunidadeAnuncio(anuncios, id, usuarios);
 			break;
 		}
 		else {
@@ -188,7 +190,7 @@ void Usuario::verAnuncio(std::vector<Anuncio*>& anuncios) {
 
 }
 
-void Usuario::opcoesComunidadeAnuncio(std::vector<Anuncio*>& anuncios, int id) {
+void Usuario::opcoesComunidadeAnuncio(std::vector<Anuncio*>& anuncios, int id, std::vector<Usuario*>& usuarios) {
 
 	while (true) {
 
@@ -198,6 +200,7 @@ void Usuario::opcoesComunidadeAnuncio(std::vector<Anuncio*>& anuncios, int id) {
 		std::cout << "\n1 - Comentar\n";
 		std::cout << "2 - Avaliar\n";
 		std::cout << "3 - Denunciar\n";
+		std::cout << "4 - Comprar\n";
 		std::cout << "0 - Sair\n";
 		std::cout << "\nsua opcao: ";
 
@@ -214,6 +217,9 @@ void Usuario::opcoesComunidadeAnuncio(std::vector<Anuncio*>& anuncios, int id) {
 		}
 		else if (opcao == 3) {
 			denunciar(anuncios, id);
+		}
+		else if (opcao == 4) {
+			comprar(anuncios, id, usuarios);
 		}
 		else {
 			std::cout << "\nOpcao invalida\n";
@@ -295,6 +301,24 @@ void Usuario::denunciar(std::vector<Anuncio*>& anuncios, int id) {
 		std::cout << "\nAnuncio nao encontrado\n" << std::endl;
 	}
 }
+
+void Usuario::comprar(std::vector<Anuncio*>& anuncios, int id, std::vector<Usuario*>& usuarios) {
+
+	int idAnuncio = id;
+
+	auto it = std::find_if(anuncios.begin(), anuncios.end(), [&idAnuncio](Anuncio* anuncio) {
+		return anuncio->getId() == idAnuncio;
+	});
+
+	if (it != anuncios.end()) {
+		
+	}
+	else {
+		std::cout << "\nAnuncio nao encontrado\n" << std::endl;
+	}
+}
+
+//minha conta
 
 void Usuario::minhaConta(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
 	

@@ -4,11 +4,13 @@
 #include "lib/usuario.hpp"
 #include "lib/inicio.hpp"
 #include "lib/anuncio.hpp"
+#include "lib/produto.hpp"
 
 int main() {
 
     std::vector<Usuario*> usuarios;
     std::vector<Anuncio*> anuncios;
+    std::vector<Produto*> produtos;
 
     std::string senhaAdm = "admin";
 

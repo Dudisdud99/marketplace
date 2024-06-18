@@ -29,6 +29,7 @@
     <ClInclude Include="src\lib\usuario.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="produto.cpp" />
     <ClCompile Include="src\adm.cpp" />
     <ClCompile Include="src\anuncio.cpp" />
     <ClCompile Include="src\cadastro.cpp" />
