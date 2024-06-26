@@ -7,11 +7,13 @@
 class Produto {
 	public:
 
-		Produto(std::string nome, std::string descricao, std::string categoria, int id, float preco);
+		Produto(std::string nome, std::string descricao, std::string categoria, int id, float preco, int usuarioId);
 
 		~Produto();
 
 		//get
+
+		int getUsuarioId();
 
 		std::string getNome();
 
@@ -37,12 +39,15 @@ class Produto {
 
 		//funcoes
 
+		void exibirDados(std::vector<Produto*>& produtos);
+
 	private:
 
 		std::string nome;
 		std::string descricao;
 		std::string categoria;
 		int id;
+		int usuarioId;
 		float preco;
 };
 

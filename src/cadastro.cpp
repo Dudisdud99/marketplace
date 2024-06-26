@@ -6,7 +6,7 @@
 void Cadastro::cadastro(std::vector<Usuario*>& usuarios, int& idUsuario, std::string senhaAdm, std::vector<Anuncio*>& anuncios) {
 
     std::string nomeUsuario, senha, email, codigo;
-    bool adm = false;
+    bool ehAdm = false;
     int opcao;
 
     while (true) {
@@ -23,7 +23,7 @@ void Cadastro::cadastro(std::vector<Usuario*>& usuarios, int& idUsuario, std::st
                 std::cin >> codigo;
 
                 if (codigo == senhaAdm) {
-                    adm = true;
+                    ehAdm = true;
                     break;  
                 }
                 else {
@@ -32,7 +32,7 @@ void Cadastro::cadastro(std::vector<Usuario*>& usuarios, int& idUsuario, std::st
 			    }
             }
 
-            if (adm) {
+            if (ehAdm) {
 				break;
 			}
 			else {
@@ -77,15 +77,15 @@ void Cadastro::cadastro(std::vector<Usuario*>& usuarios, int& idUsuario, std::st
     std::cout << "Digite a senha: ";
     std::cin >> senha;
 
-    if (adm) {
+    if (ehAdm) {
 		int tipo = 1;
-		Adm* adm = new Adm(nomeUsuario, email, senha, idUsuario, tipo);
+        Adm* adm = new Adm(nomeUsuario, email, senha, idUsuario, ehAdm);
 		usuarios.push_back(adm);
 		std::cout << "\nAdministrador cadastrado com sucesso!!!\n";
 	}
     else {
         int tipo = 2;
-        Usuario* usuario = new Usuario(nomeUsuario, email, senha, idUsuario, tipo);
+        Usuario* usuario = new Usuario(nomeUsuario, email, senha, idUsuario, ehAdm);
         usuarios.push_back(usuario);
         std::cout << "\nUsuario cadastrado com sucesso!!!\n";
     }

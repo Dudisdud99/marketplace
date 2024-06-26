@@ -9,7 +9,7 @@ class Anuncio;
 class Adm;
 
 namespace Login {
-	void login(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio);
+	void login(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio, int& idProduto);
 }
 
 #endif

@@ -3,7 +3,7 @@
 #include "lib/login.hpp"
 #include "lib/usuario.hpp"
 
-void Inicio::inicio(std::vector<Usuario*>& usuarios, int& idUsuario, std::string senhaAdm, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
+void Inicio::inicio(std::vector<Usuario*>& usuarios, int& idUsuario, std::string senhaAdm, std::vector<Anuncio*>& anuncios, int& idAnuncio, int& idProduto) {
     int opcao;
 
     std::cout << "\nBem-vindo ao marketplace\n";
@@ -20,7 +20,7 @@ void Inicio::inicio(std::vector<Usuario*>& usuarios, int& idUsuario, std::string
             Cadastro::cadastro(usuarios, idUsuario, senhaAdm, anuncios);
         }
         else if (opcao == 2) {
-            Login::login(usuarios, anuncios, idAnuncio);
+            Login::login(usuarios, anuncios, idAnuncio, idProduto);
         }
         else {
             std::cout << "\nOpcao invalida\n";

@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-void Login::login(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
+void Login::login(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio, int& idProduto) {
     std::string login, senha;
 
     while (true) {
@@ -31,12 +31,12 @@ void Login::login(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anunci
 					}
                     else {
                         std::cout << "\nAdiminstrador logado\n";
-                        static_cast<Adm*>(usuario)->inicioUsuario(usuarios, anuncios, idAnuncio);
+                        static_cast<Adm*>(usuario)->inicioUsuario(usuarios, anuncios, idAnuncio, idProduto);
                         break;
                     }
                 }
                 std::cout << "\nUsuario logado\n";
-                usuario->inicioUsuario(usuarios, anuncios, idAnuncio);
+                usuario->inicioUsuario(usuarios, anuncios, idAnuncio, idProduto);
                 break;
             }
         }

@@ -1,14 +1,16 @@
 #include "lib/anuncio.hpp"
+#include "lib/produto.hpp"
 
 //construtor e destrutor
 
-Anuncio::Anuncio(int usuarioId) {
+Anuncio::Anuncio(int usuarioId, int idAnuncio) {
 	this->usuarioId = usuarioId;
 	this->visualizacoes = 0;
 	this->likes = 0;
 	this->dislikes = 0;
 	this->denuncias = 0;
 	this->banido = false;
+	this->id = idAnuncio;
 }
 
 Anuncio::~Anuncio() {
@@ -61,6 +63,10 @@ bool Anuncio::getBanido() {
 	return this->banido;
 }
 
+int Anuncio::getProdutoId() {
+	return this->produtoId;
+}
+
 //set
 
 void Anuncio::setUsuarioId(int usuarioId) {
@@ -107,9 +113,13 @@ void Anuncio::setBanido(bool banido) {
 	this->banido = banido;
 }
 
+void Anuncio::setProdutoId(int produtoId) {
+	this->produtoId = produtoId;
+}
+
 //funcoes
 
-void Anuncio::exibirDados(std::vector<Anuncio*>& anuncios) {
+void Anuncio::exibirDados(std::vector<Anuncio*>& anuncios, std::vector<Produto*>& produtos) {
 
 	std::cout << "\nTitulo: " << this->getTitulo() << "\n";
 	std::cout << "ID: " << this->getId() << "\n";
@@ -125,4 +135,14 @@ void Anuncio::exibirDados(std::vector<Anuncio*>& anuncios) {
 		std::cout << comentarios[j] << "; ";
 	}
 	std::cout << "\n";
+	
+	int idProduto = this->produtoId;
+
+	auto it = std::find_if(produtos.begin(), produtos.end(), [&idProduto](Produto* produto) {
+		return produto->getId() == idProduto;
+	});
+
+	if (it != produtos.end()) {
+		std::cout << "Produto: " << (*it)->getNome() << "\n";
+	}
 }

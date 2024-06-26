@@ -9,7 +9,7 @@ class Anuncio;
 class Adm;
 
 namespace Inicio {
-	void inicio(std::vector<Usuario*>& usuarios, int& idUsuario, std::string senhaAdm, std::vector<Anuncio*>& anuncios, int& idAnuncio);
+	void inicio(std::vector<Usuario*>& usuarios, int& idUsuario, std::string senhaAdm, std::vector<Anuncio*>& anuncios, int& idAnuncio, int& idProduto);
 }
 
 #endif

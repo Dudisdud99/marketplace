@@ -65,9 +65,6 @@
     <ClCompile Include="src\usuario.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="produto.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
     <ClCompile Include="src\produto.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>

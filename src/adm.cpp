@@ -10,7 +10,7 @@ Adm::~Adm() {};
 
 //funcoes
 
-void Adm::inicioUsuario(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio) {
+void Adm::inicioUsuario(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio, int& idProduto) {
 
 	int opcao;
 
@@ -32,7 +32,7 @@ void Adm::inicioUsuario(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& 
 			comunidade(usuarios, anuncios);
 		}
 		else if (opcao == 2) {
-			minhaConta(usuarios, anuncios, idAnuncio);
+			minhaConta(usuarios, anuncios, idAnuncio, idProduto);
 		}
 		else if (opcao == 3) {
 			opcoesAdm(usuarios, anuncios, idAnuncio);
@@ -76,7 +76,6 @@ void Adm::opcoesAdm(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anun
 void Adm::mostrarUsuariosTodos(std::vector<Anuncio*>& anuncios, std::vector<Usuario*>& usuarios) {
 	std::cout << "\n---------------------------\n";
 
-	int id;
 	std::string dono;
 
 	for (int i = 0; i < usuarios.size(); i++) {
@@ -242,7 +241,7 @@ void Adm::mostrarAnuncio(std::vector<Anuncio*>& anuncios) {
 
 		if (it != anuncios.end()) {
 			(*it)->setVisualizacoes((*it)->getVisualizacoes() + 1);
-			(*it)->exibirDados(anuncios);
+			(*it)->exibirDados(anuncios, produtos);
 			mostrarAnunciosOp(anuncios, id);
 			break;
 		}

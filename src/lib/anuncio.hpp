@@ -1,10 +1,12 @@
 #include <iostream>
 #include <vector>
 
+class Produto;
+
 class Anuncio {
 public:
 
-	Anuncio(int usuarioId);
+	Anuncio(int usuarioId, int idAnuncio);
 
 	~Anuncio();
 
@@ -32,6 +34,8 @@ public:
 
 	bool getBanido();
 
+	int getProdutoId();
+
 	//set
 
 	void setUsuarioId(int usuarioId);
@@ -56,9 +60,11 @@ public:
 
 	void setBanido(bool banido);
 
+	void setProdutoId(int produtoId);
+
 	//funcoes
 
-	void exibirDados(std::vector<Anuncio*>& anuncios);
+	void exibirDados(std::vector<Anuncio*>& anuncios, std::vector<Produto*>& produtos);
 
 private:
 
@@ -66,6 +72,7 @@ private:
 	std::string descricao;
 	std::string categoria;
 	int usuarioId;
+	int produtoId;
 	int id;
 	int visualizacoes;
 	int likes;

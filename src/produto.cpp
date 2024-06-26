@@ -1,16 +1,21 @@
 #include "lib/produto.hpp"
 
-Produto::Produto(std::string nome, std::string descricao, std::string categoria, int id, float preco) {
+Produto::Produto(std::string nome, std::string descricao, std::string categoria, int id, float preco, int usuarioId) {
 	this->nome = nome;
 	this->descricao = descricao;
 	this->categoria = categoria;
 	this->id = id;
 	this->preco = preco;
+	this->usuarioId = usuarioId;
 }
 
 Produto::~Produto() {}
 
 //get
+
+int Produto::getUsuarioId() {
+	return this->usuarioId;
+}
 
 std::string Produto::getNome() {
 	return this->nome;
@@ -56,3 +61,12 @@ void Produto::setPreco(float preco) {
 
 //funcoes
 
+void Produto::exibirDados(std::vector<Produto*>& produtos) {
+	std::cout << "\n---------------------------\n";
+	std::cout << "Nome: " << this->nome << "\n";
+	std::cout << "Id: " << this->id << "\n";
+	std::cout << "Descricao: " << this->descricao << "\n";
+	std::cout << "Categoria: " << this->categoria << "\n";
+	std::cout << "Preco: " << this->preco << "\n";
+	std::cout << "UsuarioId: " << this->usuarioId << "\n";
+}

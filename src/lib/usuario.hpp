@@ -5,6 +5,7 @@
 #include <vector>
 
 class Anuncio;
+class Produto;
 
 class Usuario {
 	public:
@@ -43,7 +44,7 @@ class Usuario {
 
 		//funcoes
 
-		void inicioUsuario(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio);
+		void inicioUsuario(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio, int& idProduto);
 
 		void comunidade(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios);
 
@@ -59,7 +60,7 @@ class Usuario {
 
 		void comprar(std::vector<Anuncio*>& anuncios, int id, std::vector<Usuario*>& usuarios);
 
-		void minhaConta(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio);
+		void minhaConta(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios, int& idAnuncio, int& idProduto);
 
 		void meusDados(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios);
 
@@ -72,6 +73,18 @@ class Usuario {
 		void editarAnuncio(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios);
 
 		void excluirAnuncio(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios);
+
+		void meusProdutos(std::vector<Usuario*>& usuarios);
+
+		void opcoesMeusProdutos(std::vector<Usuario*>& usuarios, int& idProduto);
+
+		void criarProduto(std::vector<Usuario*>& usuarios, int& idProduto);
+
+		void editarProduto(std::vector<Usuario*>& usuarios);
+
+		void excluirProduto(std::vector<Usuario*>& usuarios);
+
+		std::vector<Produto*> produtos;
 
 	private:
 

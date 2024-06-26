@@ -10,14 +10,14 @@ int main() {
 
     std::vector<Usuario*> usuarios;
     std::vector<Anuncio*> anuncios;
-    std::vector<Produto*> produtos;
 
     std::string senhaAdm = "admin";
 
     int idUsuario = 0;
     int idAnuncio = 0;
+    int idProduto = 0;
 
-    Inicio::inicio(usuarios, idUsuario, senhaAdm, anuncios, idAnuncio);
+    Inicio::inicio(usuarios, idUsuario, senhaAdm, anuncios, idAnuncio, idProduto);
 
     for (auto it = usuarios.begin(); it != usuarios.end(); ) {
         delete* it;
