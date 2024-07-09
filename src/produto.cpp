@@ -1,12 +1,13 @@
 #include "lib/produto.hpp"
 
-Produto::Produto(std::string nome, std::string descricao, std::string categoria, int id, float preco, int usuarioId) {
+Produto::Produto(std::string nome, std::string descricao, std::string categoria, int id, float preco, int usuarioId, int quantidade) {
 	this->nome = nome;
 	this->descricao = descricao;
 	this->categoria = categoria;
 	this->id = id;
 	this->preco = preco;
 	this->usuarioId = usuarioId;
+	this->quantidade = quantidade;
 }
 
 Produto::~Produto() {}
@@ -37,6 +38,10 @@ float Produto::getPreco() {
 	return this->preco;
 }
 
+int Produto::getQuantidade() {
+	return this->quantidade;
+}
+
 //set
 
 void Produto::setCategoria(std::string categoria) {
@@ -57,6 +62,10 @@ void Produto::setNome(std::string nome) {
 
 void Produto::setPreco(float preco) {
 	this->preco = preco;
+}
+
+void Produto::setQuantidade(int quantidade) {
+	this->quantidade = quantidade;
 }
 
 //funcoes

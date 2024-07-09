@@ -36,6 +36,8 @@ public:
 
 	int getProdutoId();
 
+	bool getComprado();
+
 	//set
 
 	void setUsuarioId(int usuarioId);
@@ -62,6 +64,8 @@ public:
 
 	void setProdutoId(int produtoId);
 
+	void setComprado(bool comprado);
+
 	//funcoes
 
 	void exibirDados(std::vector<Anuncio*>& anuncios, std::vector<Produto*>& produtos);
@@ -79,5 +83,5 @@ private:
 	int dislikes;
 	int denuncias;
 	std::vector<std::string> comentarios;
-	bool banido;
+	bool banido, comprado;
 };

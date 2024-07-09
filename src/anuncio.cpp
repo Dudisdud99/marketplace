@@ -11,6 +11,7 @@ Anuncio::Anuncio(int usuarioId, int idAnuncio) {
 	this->denuncias = 0;
 	this->banido = false;
 	this->id = idAnuncio;
+	this->comprado = false;
 }
 
 Anuncio::~Anuncio() {
@@ -67,6 +68,10 @@ int Anuncio::getProdutoId() {
 	return this->produtoId;
 }
 
+bool Anuncio::getComprado() {
+	return this->comprado;
+}
+
 //set
 
 void Anuncio::setUsuarioId(int usuarioId) {
@@ -117,6 +122,10 @@ void Anuncio::setProdutoId(int produtoId) {
 	this->produtoId = produtoId;
 }
 
+void Anuncio::setComprado(bool comprado) {
+	this->comprado = comprado;
+}
+
 //funcoes
 
 void Anuncio::exibirDados(std::vector<Anuncio*>& anuncios, std::vector<Produto*>& produtos) {
@@ -144,5 +153,10 @@ void Anuncio::exibirDados(std::vector<Anuncio*>& anuncios, std::vector<Produto*>
 
 	if (it != produtos.end()) {
 		std::cout << "Produto: " << (*it)->getNome() << "\n";
+	}
+	if (this->comprado == true) {
+		std::cout << "Comprado: Sim\n";
+	} else {
+		std::cout << "Comprado: Nao\n";
 	}
 }

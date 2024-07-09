@@ -110,33 +110,21 @@ void Usuario::comunidade(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>&
 
 	int id;
 	std::string dono;
+	std::string nomeProduto;
+	int quantidade = 0;
+	int contador = 0;
+
+	if (anuncios.size() <= 0) {
+		std::cout << "\nNao ha anuncios\n";
+		return;
+	}
 
 	for (int i = 0; i < anuncios.size(); i++) {
-
-		if(anuncios[i]->getBanido()){
+		if(anuncios[i]->getBanido() || anuncios[i]->getComprado()) {
+			contador++;
 			continue;
 		}
 		else {
-			id = anuncios[i]->getUsuarioId();
-
-			auto it = std::find_if(usuarios.begin(), usuarios.end(), [&id](Usuario* usuario) {
-				return usuario->getId() == id;
-			});
-
-			if (it != usuarios.end()) {
-				dono = (*it)->getNome();
-			}
-			else {
-				std::cout << "\nAnuncio nao encontrado\n" << std::endl;
-			}
-
-			std::cout << "\nTitulo: " << anuncios[i]->getTitulo() << "\n";
-			std::cout << "Id: " << anuncios[i]->getId() << "\n";
-			std::cout << "Dono: " << dono << "\n";
-			std::cout << "Descricao: " << anuncios[i]->getDescricao() << "\n";
-			std::cout << "Categoria: " << anuncios[i]->getCategoria() << "\n";
-			std::cout << "Visualizacoes: " << anuncios[i]->getVisualizacoes() << "\n";
-
 			int idProduto = anuncios[i]->getProdutoId();
 
 			auto it2 = std::find_if(produtos.begin(), produtos.end(), [&idProduto](Produto* produto) {
@@ -144,9 +132,41 @@ void Usuario::comunidade(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>&
 			});
 
 			if (it2 != produtos.end()) {
-				std::cout << "Produto: " << (*it2)->getNome() << "\n";
+				quantidade = (*it2)->getQuantidade();
+				nomeProduto = (*it2)->getNome();
+			}
+
+			if (quantidade != 0) {
+				id = anuncios[i]->getUsuarioId();
+
+				auto it = std::find_if(usuarios.begin(), usuarios.end(), [&id](Usuario* usuario) {
+					return usuario->getId() == id;
+				});
+
+				if (it != usuarios.end()) {
+					dono = (*it)->getNome();
+				}
+				else {
+					std::cout << "\nAnuncio abaixo nao encontrado\n" << std::endl;
+				}
+
+				std::cout << "\nTitulo: " << anuncios[i]->getTitulo() << "\n";
+				std::cout << "Id: " << anuncios[i]->getId() << "\n";
+				std::cout << "Dono: " << dono << "\n";
+				std::cout << "Descricao: " << anuncios[i]->getDescricao() << "\n";
+				std::cout << "Categoria: " << anuncios[i]->getCategoria() << "\n";
+				std::cout << "Visualizacoes: " << anuncios[i]->getVisualizacoes() << "\n";
+				std::cout << "Produto: " << nomeProduto << "\n";
+			}
+			else {
+				continue;
 			}
 		}
+	}
+
+	if (contador == anuncios.size()) {
+		std::cout << "\nNao ha anuncios\n";
+		return;
 	}
 
 	while (true) {
@@ -229,6 +249,7 @@ void Usuario::opcoesComunidadeAnuncio(std::vector<Anuncio*>& anuncios, int id, s
 		}
 		else if (opcao == 4) {
 			comprar(anuncios, id, usuarios);
+			break;
 		}
 		else {
 			std::cout << "\nOpcao invalida\n";
@@ -314,16 +335,30 @@ void Usuario::denunciar(std::vector<Anuncio*>& anuncios, int id) {
 void Usuario::comprar(std::vector<Anuncio*>& anuncios, int id, std::vector<Usuario*>& usuarios) {
 
 	int idAnuncio = id;
+	int idProduto;
 
 	auto it = std::find_if(anuncios.begin(), anuncios.end(), [&idAnuncio](Anuncio* anuncio) {
-		return anuncio->getId() == idAnuncio;
+		return anuncio->getProdutoId() == idAnuncio;
 	});
 
 	if (it != anuncios.end()) {
-		
+		(*it)->setComprado(true);
+		idProduto = (*it)->getProdutoId();
+		std::cout << "\nCompra realizada\n" << std::endl;
 	}
 	else {
 		std::cout << "\nAnuncio nao encontrado\n" << std::endl;
+	}
+
+	auto it2 = std::find_if(produtos.begin(), produtos.end(), [&idProduto](Produto* produto) {
+		return produto->getId() == idProduto;
+	});
+
+	if (it2 != produtos.end()) {
+		(*it2)->setQuantidade((*it2)->getQuantidade() - 1);
+	}
+	else {
+		std::cout << "\nProduto nao encontrado\n" << std::endl;
 	}
 }
 
@@ -455,7 +490,7 @@ void Usuario::criarAnuncio(std::vector<Usuario*>& usuarios, std::vector<Anuncio*
 	while (true) {
 
 		std::cout << "\n---------------------------\n";
-		std::cout << "\nQual produto deseja adicionar: ";
+		std::cout << "\nQual produto deseja adicionar (id): ";
 		std::cin >> idProduto;
 
 		auto it = std::find_if(produtos.begin(), produtos.end(), [&idProduto](Produto* produtos) {
@@ -582,8 +617,11 @@ void Usuario::meusProdutos(std::vector<Usuario*>& usuarios) {
 	}
 	else{
 		for (int i = 0; i < produtos.size(); i++) {
-			if (produtos[i]->getUsuarioId() == this->id) {
+			if (produtos[i]->getQuantidade() > 0) {
 				produtos[i]->exibirDados(produtos);
+			}
+			else {
+				std::cout << "\nProduto fora de estoque\n";
 			}
 		}
 	}
@@ -627,6 +665,7 @@ void Usuario::criarProduto(std::vector<Usuario*>& usuarios, int& idProduto) {
 	std::string descricao;
 	std::string categoria;
 	float preco;
+	int quantidade;
 
 	std::cout << "\n---------------------------\n";
 	std::cout << "\nNome: ";
@@ -637,8 +676,10 @@ void Usuario::criarProduto(std::vector<Usuario*>& usuarios, int& idProduto) {
 	std::cin >> categoria;
 	std::cout << "Preco: ";
 	std::cin >> preco;
+	std::cout << "Quantidade: ";
+	std::cin >> quantidade;
 
-	Produto* produto = new Produto(nome, descricao, categoria, idProduto, preco, this->id);
+	Produto* produto = new Produto(nome, descricao, categoria, idProduto, preco, this->id, quantidade);
 	produtos.push_back(produto);
 
 	idProduto++;
@@ -651,20 +692,13 @@ void Usuario::editarProduto(std::vector<Usuario*>& usuarios) {
 	std::string descricao;
 	std::string categoria;
 	float preco;
+	int quantidade;
 
 	while (true) {
 
 		std::cout << "\n---------------------------\n";
-		std::cout << "\nId do produto: ";
+		std::cout << "Digite o id do produto: ";
 		std::cin >> id;
-		std::cout << "\nNome: ";
-		std::cin >> nome;
-		std::cout << "Descricao: ";
-		std::cin >> descricao;
-		std::cout << "Categoria: ";
-		std::cin >> categoria;
-		std::cout << "Preco: ";
-		std::cin >> preco;
 
 		auto it = std::find_if(produtos.begin(), produtos.end(), [&id](Produto* produto) {
 			return produto->getId() == id;
@@ -672,10 +706,22 @@ void Usuario::editarProduto(std::vector<Usuario*>& usuarios) {
 
 		if (it != produtos.end()) {
 
+			std::cout << "\nNome: ";
+			std::cin >> nome;
+			std::cout << "Descricao: ";
+			std::cin >> descricao;
+			std::cout << "Categoria: ";
+			std::cin >> categoria;
+			std::cout << "Preco: ";
+			std::cin >> preco;
+			std::cout << "Quantidade: ";
+			std::cin >> quantidade;
+
 			produtos[id]->setNome(nome);
 			produtos[id]->setDescricao(descricao);
 			produtos[id]->setCategoria(categoria);
 			produtos[id]->setPreco(preco);
+			produtos[id]->setQuantidade(quantidade);
 
 			std::cout << "\nProduto editado\n";
 
@@ -683,6 +729,7 @@ void Usuario::editarProduto(std::vector<Usuario*>& usuarios) {
 		}
 		else {
 			std::cout << "\nProduto nao encontrado\n";
+			continue;
 		}
 	}
 }
