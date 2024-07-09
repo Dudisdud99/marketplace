@@ -185,6 +185,7 @@ void Usuario::comunidade(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>&
 		}
 		else if (opcao == 1) {
 			verAnuncio(anuncios, usuarios);
+			return;
 		}
 		else {
 			std::cout << "\nOpcao invalida\n";
@@ -249,7 +250,7 @@ void Usuario::opcoesComunidadeAnuncio(std::vector<Anuncio*>& anuncios, int id, s
 		}
 		else if (opcao == 4) {
 			comprar(anuncios, id, usuarios);
-			break;
+			return;
 		}
 		else {
 			std::cout << "\nOpcao invalida\n";
@@ -344,6 +345,7 @@ void Usuario::comprar(std::vector<Anuncio*>& anuncios, int id, std::vector<Usuar
 	if (it != anuncios.end()) {
 		(*it)->setComprado(true);
 		idProduto = (*it)->getProdutoId();
+		compras.push_back(*it);
 		std::cout << "\nCompra realizada\n" << std::endl;
 	}
 	else {
@@ -374,6 +376,7 @@ void Usuario::minhaConta(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>&
 		std::cout << "\n1 - Meus dados\n";
 		std::cout << "2 - Anuncios\n";
 		std::cout << "3 - Produtos\n";
+		std::cout << "4 - Carrinho\n";
 		std::cout << "0 - Sair\n";
 		std::cout << "\nsua opcao: ";
 
@@ -393,8 +396,28 @@ void Usuario::minhaConta(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>&
 			meusProdutos(usuarios);
 			opcoesMeusProdutos(usuarios, idProduto);
 		}
+		else if (opcao == 4) {
+			minhasCompras(anuncios);
+		}
 		else {
 			std::cout << "\nOpcao invalida\n";
+		}
+	}
+}
+
+void Usuario::minhasCompras(std::vector<Anuncio*>& anuncios) {
+
+	std::cout << "\n---------------------------\n";
+	std::cout << "\nMinhas compras:\n";
+
+	if (compras.size() <= 0) {
+		std::cout << "\nNao ha anuncios\n";
+	}
+	else {
+		for (int i = 0; i < anuncios.size(); i++) {
+			if (anuncios[i]->getComprado() && anuncios[i]->getUsuarioId() == this->id) {
+				anuncios[i]->exibirDados(anuncios, produtos);
+			}
 		}
 	}
 }

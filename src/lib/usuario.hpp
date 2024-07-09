@@ -84,7 +84,11 @@ class Usuario {
 
 		void excluirProduto(std::vector<Usuario*>& usuarios);
 
+		void minhasCompras(std::vector<Anuncio*>& anuncios);
+
 		std::vector<Produto*> produtos;
+
+		std::vector<Anuncio*> compras;
 
 	private:
 
