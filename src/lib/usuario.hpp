@@ -74,7 +74,7 @@ class Usuario {
 
 		void excluirAnuncio(std::vector<Usuario*>& usuarios, std::vector<Anuncio*>& anuncios);
 
-		void meusProdutos(std::vector<Usuario*>& usuarios);
+		int meusProdutos(std::vector<Usuario*>& usuarios);
 
 		void opcoesMeusProdutos(std::vector<Usuario*>& usuarios, int& idProduto);
 
@@ -88,10 +88,9 @@ class Usuario {
 
 		std::vector<Produto*> produtos;
 
-		std::vector<Anuncio*> compras;
-
 	private:
 
+		std::vector<Anuncio*> compras;
 		std::string nome;
 		std::string email;
 		std::string senha;

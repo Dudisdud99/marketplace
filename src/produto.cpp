@@ -78,4 +78,5 @@ void Produto::exibirDados(std::vector<Produto*>& produtos) {
 	std::cout << "Categoria: " << this->categoria << "\n";
 	std::cout << "Preco: " << this->preco << "\n";
 	std::cout << "UsuarioId: " << this->usuarioId << "\n";
+	std::cout << "Quantidade: " << this->quantidade << "\n";
 }
